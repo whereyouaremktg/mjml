@@ -72,14 +72,11 @@ land in the drag-and-drop builder with no paste-HTML escape hatch, and you start
    `<table background="">` attribute, and the table's background shorthand. Replace
    one and miss another and the hero goes blank in either Outlook or everything else.
    The comment above that block in the HTML says the same thing.
-4. Replace all **four** `href="#"` placeholders — two per CTA. The label and the arrow
-   are separate anchors, so the whole CTA is tappable rather than just the small text
-   run; give both anchors in a CTA the same destination.
-
-   | CTA | Anchors |
-   |---|---|
-   | Shop Now (hero) | label + arrow |
-   | The Detangling Brush (editorial) | label + arrow |
+4. Links. All four anchors — the label and the chevron on each of the two CTAs — point
+   at `https://www.greedyhaircare.com/collections/greedy-lineup`. The two anchors per
+   CTA exist so the whole row is tappable, not just the small text run; keep them in
+   step. To change the destination, find and replace that URL in the MJML (4
+   occurrences) and rebuild.
 5. The footer carries `{% unsubscribe %}`, `{{ organization.name }}` and
    `{{ organization.full_address }}`. Delete that section if your Klaviyo template
    already appends a footer — but Klaviyo will not let you send without an
