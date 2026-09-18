@@ -1,0 +1,235 @@
+<mjml>
+  <mj-head>
+    <mj-title>Greedy For Better, Not More</mj-title>
+    <mj-preview>Glow is now Greedy Selfish Haircare. Designed with intention, by experts.</mj-preview>
+
+    <!-- Columns stack below this width. 480 keeps two columns on tablets, one on phones. -->
+    <mj-breakpoint width="480px" />
+
+    <!--
+      One request per family. The original export asked Google for "Libre Caslon
+      Condensed", which does not exist there - that single bad family made the whole
+      combined request 400, so Inter and DM Mono never loaded either. Libre Caslon
+      Display is the nearest Google match; 'Libre Caslon Condensed' stays first in the
+      stack so anyone with the licensed face installed still gets it.
+    -->
+    <mj-font name="Libre Caslon Display" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;display=swap" />
+    <mj-font name="Inter" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;display=swap" />
+    <mj-font name="DM Mono" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&amp;display=swap" />
+
+    <mj-attributes>
+      <mj-all font-family="'ABC Marfa', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif" />
+      <mj-text color="#372523" font-size="14px" line-height="20px" padding="0" />
+      <mj-section padding="0" border-left="1px solid #372523" />
+      <mj-column padding="0" />
+      <mj-image padding="0" border="0" />
+    </mj-attributes>
+
+    <mj-style>
+      a { color: inherit; }
+      .gr-body-copy p { margin: 0 0 12px 0; }
+      .gr-body-copy p:last-child { margin-bottom: 0; }
+
+      /* Phone overrides. The hero cream panel goes full width and rides higher over
+         the collage; the editorial measure opens up to the full content width. */
+      @media only screen and (max-width: 480px) {
+        td.gr-hero-panel-cell { padding: 108px 16px 28px 16px !important; }
+        table.gr-hero-panel { width: 100% !important; }
+        td.gr-hero-panel-inner { padding: 20px 18px 0 18px !important; }
+        td.gr-hero-panel-cta { padding: 20px 18px 22px 18px !important; }
+        td.gr-editorial-pad { padding-left: 18px !important; padding-right: 18px !important; }
+        .gr-editorial > table > tbody > tr > td, td.gr-editorial-cols { padding-left: 18px !important; padding-right: 18px !important; }
+        td.gr-col-text { padding-left: 0 !important; padding-right: 0 !important; }
+        td.gr-col-left { padding-bottom: 12px !important; }
+        td.gr-hero-wordmark-cell { padding: 12px 0 0 14px !important; }
+      }
+
+      /* Justified text needs a decent measure. Below ~360px it turns into rivers,
+         so fall back to ragged right on the narrowest phones. */
+      @media only screen and (max-width: 400px) {
+        .gr-body-copy div, .gr-body-copy p { text-align: left !important; }
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body background-color="#E9E9E9" width="600px">
+
+    <!-- 24px white gutter, then the 1px ink rail, then 575px of content. The rail is
+         a border-left defaulted onto every section in mj-attributes; because sections
+         stack with no gap between them it reads as one line down the whole email,
+         the way the Figma artboard has it. -->
+    <mj-wrapper background-color="#FFFFFF" padding="0 0 0 24px" css-class="gr-frame">
+
+        <!-- SECTION: hero-collage ................................................
+             REPLACE the hero with a hosted URL. It is a section BACKGROUND, not an
+             <img>, so the path is emitted four times just below: the Outlook VML
+             <v:image src>, the div background shorthand, the table background
+             attribute, and the table background shorthand. Find and replace every
+             occurrence of the path - missing one leaves the hero blank in either
+             Outlook or everything else. 575x540 (@2x 1150x1080). -->
+        <mj-section
+          css-class="gr-hero"
+          background-color="#FFFFFF"
+          background-url="assets/slot-hero-collage@2x.png"
+          background-size="cover"
+          background-repeat="no-repeat"
+          background-position="top center"
+          padding="0">
+          <mj-column width="100%">
+
+            <!-- REPLACE src with a hosted URL. Wordmark, white, transparent PNG,
+                 104x23 (@2x 208x46). The PNG is generated and ready to upload. -->
+            <mj-image
+              css-class="gr-hero-wordmark"
+              src="assets/greedy-wordmark-white@2x.png"
+              width="104px"
+              align="left"
+              alt="Greedy"
+              padding="10px 0 0 12px" />
+
+            <mj-text css-class="gr-hero-panel-cell" align="left" padding="161px 0 118px 64px">
+              <table role="presentation" class="gr-hero-panel" width="277" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; width:277px; background-color:#FFF7F0;">
+                <tr>
+                  <td class="gr-hero-panel-inner" style="padding:16px 20px 0 20px;">
+
+                    <p class="gr-hero-headline" style="margin:0 0 10px 0; font-family:'Libre Caslon Condensed','Libre Caslon Display',Georgia,'Times New Roman',serif; font-weight:500; font-size:28px; line-height:33px; color:#372523;">Greedy For <em style="font-style:italic;">Better</em>, Not More</p>
+
+                    <p class="gr-hero-body" style="margin:0; font-size:14px; line-height:20px; color:#372523;">Glow is now Greedy Selfish Haircare. Designed with intention, by experts for the woman who wants better for herself.</p>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td class="gr-hero-panel-cta" style="padding:20px 20px 20px 20px;">
+
+                                        <!-- Arrow CTA. The rule is an 8px cell with a 1px border-bottom (border-collapse:
+     separate, so the border stays inside the cell instead of straddling the row
+     boundary) and the
+                         chevron is a 16px-tall PNG that carries its own lead-in line at the same y,
+                         so the two join as one continuous line in every client, Outlook included.
+                         Label and chevron are separate anchors with the same destination so the
+                         whole row is tappable. -->
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                      <tr>
+                        <td valign="middle" style="padding:0 8px 0 0; font-family:'ABC Marfa Mono','DM Mono','Courier New',Courier,monospace; font-weight:500; font-size:14px; line-height:16px; text-transform:uppercase; color:#372523; white-space:nowrap;">
+                          <a href="https://www.greedyhaircare.com/collections/greedy-lineup" style="color:#372523; text-decoration:none;">Shop Now</a>
+                        </td>
+                        <td valign="middle" width="100%" style="font-size:0; line-height:0;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate; border-spacing:0;">
+                            <tr><td height="8" style="height:8px; line-height:8px; font-size:1px; mso-line-height-rule:exactly; border-bottom:1px solid #372523;">&#160;</td></tr>
+                            <tr><td height="7" style="height:7px; line-height:7px; font-size:1px; mso-line-height-rule:exactly;">&#160;</td></tr>
+                          </table>
+                        </td>
+                        <td valign="middle" width="8" style="width:8px; font-size:0; line-height:0;">
+                          <a href="https://www.greedyhaircare.com/collections/greedy-lineup" style="text-decoration:none;"><img src="assets/arrow-head@2x.png" width="8" height="16" alt="" style="display:block; width:8px; height:16px; border:0; outline:none;" /></a>
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+            </mj-text>
+
+          </mj-column>
+        </mj-section>
+
+        <!-- SECTION: editorial-two-col ........................................... -->
+        <mj-section padding="40px 0 0">
+          <mj-column>
+            <mj-text css-class="gr-editorial-pad" align="center" padding="0 38px" font-family="'Libre Caslon Condensed','Libre Caslon Display',Georgia,'Times New Roman',serif" font-size="28px" line-height="33px" font-weight="500">
+              Let&#8217;s Get Greedy.
+            </mj-text>
+            <mj-text align="center" padding="18px 0 0">
+              <table role="presentation" align="center" width="1" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; margin:0 auto;">
+                <tr><td width="1" height="84" style="width:1px; height:84px; line-height:84px; font-size:1px; background-color:#372523;">&#160;</td></tr>
+              </table>
+            </mj-text>
+          </mj-column>
+        </mj-section>
+
+        <!--
+          The Figma artboard runs this as a true magazine flow: three rows of
+          columns with an image nested between them. Reading order down the page is
+          left column A > C > E, right column B > D > F, which only holds together
+          while both columns are visible. Stacked on a phone it would scramble the
+          sentences, so the same words are set as two continuous columns that stack
+          in the right order, with the inset image between the columns and the CTA.
+        -->
+        <mj-section css-class="gr-editorial" padding="22px 38px 0">
+          <mj-column css-class="gr-editorial-col" width="50%">
+            <mj-text css-class="gr-body-copy gr-col-text gr-col-left" padding="0 8px 0 0" align="justify">
+              <p><span style="font-family:'ABC Marfa Mono','DM Mono','Courier New',Courier,monospace; font-weight:500; letter-spacing:0.04em;">GREEDY IS A GOOD THING.</span> Somewhere along the way, wanting more became something we were supposed to apologize for. More joy. More beauty. More intention.</p>
+              <p>More beauty. More intention. Better quality. Better design. Better for ourselves. We were told to be grateful for what we get. To not ask for too much. To take what works and call it good enough. Greedy is about knowing what you want and refusing to feel bad for wanting it. It&#8217;s having standards. Paying attention. Choosing the things that make the everyday feel better, look better, work better.</p>
+            </mj-text>
+          </mj-column>
+          <mj-column css-class="gr-editorial-col" width="50%">
+            <mj-text css-class="gr-body-copy gr-col-text gr-col-right" padding="0 0 0 8px" align="justify">
+              <p>Because more doesn&#8217;t have to mean more stuff. Sometimes more means more considered. More thoughtful. More beautiful. More you. That belief is behind everything we make.</p>
+              <p>Every detail has a reason. Every color tells a story. Every material is considered. Every product is tested, obsessed over, changed, tested again and made better until it earns its place in your life. We believe intention lives there. Not in excess for the sake of excess, but in the tiny details someone cared enough to get right. This isn&#8217;t just a hairbrush. It&#8217;s a higher standard.</p>
+            </mj-text>
+          </mj-column>
+        </mj-section>
+
+        <mj-section padding="28px 0 0">
+          <mj-column>
+            <!-- REPLACE src with a hosted URL. Inset image, 129x123 (@2x 258x246). -->
+            <mj-image src="assets/slot-inset@2x.png" width="129px" align="center" alt="" />
+          </mj-column>
+        </mj-section>
+
+        <mj-section padding="34px 24px 0">
+          <mj-column>
+            <mj-text align="center">
+                            <!-- Arrow CTA. The rule is an 8px cell with a 1px border-bottom (border-collapse:
+     separate, so the border stays inside the cell instead of straddling the row
+     boundary) and the
+                   chevron is a 16px-tall PNG that carries its own lead-in line at the same y,
+                   so the two join as one continuous line in every client, Outlook included.
+                   Label and chevron are separate anchors with the same destination so the
+                   whole row is tappable. -->
+              <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; margin:0 auto;">
+                <tr>
+                  <td valign="middle" style="padding:0 12px 0 0; font-family:'ABC Marfa Mono','DM Mono','Courier New',Courier,monospace; font-weight:500; font-size:14px; line-height:16px; text-transform:uppercase; color:#372523; white-space:nowrap;">
+                    <a href="https://www.greedyhaircare.com/collections/greedy-lineup" style="color:#372523; text-decoration:none;">The Detangling Brush</a>
+                  </td>
+                  <td valign="middle" width="70" style=" width:70px;font-size:0; line-height:0;">
+                    <table role="presentation" width="70" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate; border-spacing:0; width:70px;">
+                      <tr><td height="8" style="height:8px; line-height:8px; font-size:1px; mso-line-height-rule:exactly; border-bottom:1px solid #372523;">&#160;</td></tr>
+                      <tr><td height="7" style="height:7px; line-height:7px; font-size:1px; mso-line-height-rule:exactly;">&#160;</td></tr>
+                    </table>
+                  </td>
+                  <td valign="middle" width="8" style="width:8px; font-size:0; line-height:0;">
+                    <a href="https://www.greedyhaircare.com/collections/greedy-lineup" style="text-decoration:none;"><img src="assets/arrow-head@2x.png" width="8" height="16" alt="" style="display:block; width:8px; height:16px; border:0; outline:none;" /></a>
+                  </td>
+                </tr>
+              </table>
+            </mj-text>
+          </mj-column>
+        </mj-section>
+
+        <!-- SECTION: lifestyle-break ............................................. -->
+        <mj-section padding="52px 0 0">
+          <mj-column>
+            <!-- REPLACE src with a hosted URL. Lifestyle image, 575x304 (@2x 1150x608). -->
+            <mj-image src="assets/slot-lifestyle@2x.png" width="575px" alt="" />
+            <!-- REPLACE src with a hosted URL. Wordmark, ink, transparent PNG,
+                 69x15 (@2x 138x30). The PNG is generated and ready to upload. -->
+            <mj-image src="assets/greedy-wordmark-ink@2x.png" width="69px" align="center" alt="Greedy" padding="10px 0 0" />
+          </mj-column>
+        </mj-section>
+
+        <!-- SECTION: footer (Klaviyo tags - delete if your Klaviyo template adds one) -->
+        <mj-section padding="28px 38px 30px">
+          <mj-column>
+            <mj-text align="center" color="#827A76" font-family="'ABC Marfa Mono','DM Mono','Courier New',Courier,monospace" font-size="11px" line-height="18px">
+              {{ organization.name }}<br />
+              {{ organization.full_address }}<br />
+              {% unsubscribe %}
+            </mj-text>
+          </mj-column>
+        </mj-section>
+
+    </mj-wrapper>
+
+  </mj-body>
+</mjml>

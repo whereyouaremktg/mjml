@@ -1,0 +1,23 @@
+{
+  "skill_name": "figma-to-klaviyo-email",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here's the Figma frame for the next Greedy campaign email (Detangling Brush restock): https://www.figma.com/design/4v1h28IeyXevRYwOroCQPr/Glow-Master?node-id=491-16345 — same layout as the launch email, new photography and copy. I need it responsive and in Klaviyo. Don't create the Klaviyo template yet, just build everything and show me the previews.",
+      "expected_output": "A campaign folder with a validated MJML built from the Greedy template, compiled HTML, a Klaviyo build with placeholder or real image URLs, previews at both breakpoints, measure.js output showing hero 540 and CTA delta 0, and a README. Stops before creating the Klaviyo template because the user said so, and reports what it needs to finish.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "The arrow on the hero CTA in our Klaviyo email looks broken again — there's a gap between the line and the arrowhead. Template is Wv3ti4, source is in emails/greedy/. Can you fix it and push the fix everywhere it needs to go?",
+      "expected_output": "Diagnoses via measure.js (CTA delta), identifies the rule table's border-collapse or a glyph regression, fixes the MJML, rebuilds both outputs, verifies delta 0 on both breakpoints with crops, commits, and updates the Klaviyo template with the built file (or confirms with the user before the Klaviyo write if the session hasn't authorised it).",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have an HTML.to.design export of a new email design for Greedy (attached as greedy-spring-01.html). Make it work in email — it's got the usual absolute positioning mess. I don't have the Figma link handy.",
+      "expected_output": "Asks for the Figma frame link because the photography lives there, but proceeds with the build using placeholders: rebuilds the layout in MJML following the structure rules (rail, hero background, stacked columns, arrow CTAs, 14px body, separate mj-font per family), compiles, verifies with measure.js, produces previews and a README noting what changed from the artboard and why, and lists what's still needed (photography, links, Klaviyo account confirmation).",
+      "files": []
+    }
+  ]
+}
