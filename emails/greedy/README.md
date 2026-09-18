@@ -1,16 +1,58 @@
 # Greedy — Klaviyo email build
 
-`greedy-launch-01.mjml` is the source. `greedy-launch-01.html` is the compiled file you
-paste into Klaviyo. Edit the MJML, recompile, paste again — don't hand-edit the HTML.
+`greedy-launch-01.mjml` is the source. Everything else is generated — edit the MJML,
+rebuild, never hand-edit the HTML.
 
     npx mjml@5 emails/greedy/greedy-launch-01.mjml -o emails/greedy/greedy-launch-01.html
+    node emails/greedy/build-klaviyo.js
 
-Compiled output is 39 KB, well under Gmail's 102 KB clipping threshold.
+| File | What it is |
+|---|---|
+| `greedy-launch-01.mjml` | source |
+| `greedy-launch-01.html` | compiled, local placeholder image paths, 39 KB |
+| `greedy-launch-01.klaviyo.html` | the above with Klaviyo CDN image URLs and the editable regions injected |
+| `build-klaviyo.js` | the second step — swaps image URLs, marks the regions, asserts every replacement matched |
 
-## Paste it into Klaviyo
+Compiled output is under Gmail's 102 KB clipping threshold.
 
-1. Campaigns → Create campaign → Email → **Drag and drop or HTML** → choose HTML.
-2. Paste the whole contents of `greedy-launch-01.html`, `<!DOCTYPE>` to `</html>`.
+## It is already in Klaviyo
+
+Template **Greedy Launch 01 - Greedy For Better, Not More**, id `Wv3ti4`, in the Greedy
+Haircare account — https://www.klaviyo.com/email-editor/Wv3ti4/edit
+
+It is a **hybrid (`USER_DRAGGABLE`)** template: the layout is locked as code, and four
+regions are editable in Klaviyo's UI without touching HTML —
+
+| Region | Blocks |
+|---|---|
+| Hero cream panel | headline, body |
+| Editorial headline | "Let's Get Greedy." |
+| Editorial left column | prose |
+| Editorial right column | prose |
+
+The five placeholder images are uploaded to the Klaviyo image library and referenced by
+CDN URL, so the template renders as soon as you open it.
+
+Not editable in the UI, by design:
+
+- **The hero collage.** It is a CSS/VML section background, which Klaviyo cannot expose
+  as an image block. Overlapping two photo cards with a cream panel is the whole point
+  of the hero and email has no other way to do it. Swap it by rebuilding, or by editing
+  the four URL occurrences in Klaviyo's code view.
+- **The CTA rows, the rail and the wordmarks.** Structural or brand marks; editable
+  regions there would just invite breakage.
+
+To push a new version: rebuild, then update template `Wv3ti4` rather than creating a
+second one.
+
+## If you ever need to paste it in by hand
+
+The one trick: **pick the code editor at creation — it is a one-way door.** Klaviyo
+cannot convert a drag-and-drop template to code or back. Start from the campaign and you
+land in the drag-and-drop builder with no paste-HTML escape hatch, and you start over.
+
+1. Content → Templates → **Create Template → Code Template**. Not the campaign flow.
+2. Paste the whole contents of `greedy-launch-01.klaviyo.html`, `<!DOCTYPE>` to `</html>`.
 3. Swap every image path for a hosted URL. Upload to Klaviyo's image library
    (Content → Images), copy the URL, then **find and replace the path, not the
    `src=`** — one of the five appears more than once:

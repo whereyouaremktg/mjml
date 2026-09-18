@@ -35,7 +35,8 @@
       @media only screen and (max-width: 480px) {
         td.gr-hero-panel-cell { padding: 108px 16px 28px 16px !important; }
         table.gr-hero-panel { width: 100% !important; }
-        td.gr-hero-panel-inner { padding: 20px 18px 22px 18px !important; }
+        td.gr-hero-panel-inner { padding: 20px 18px 0 18px !important; }
+        td.gr-hero-panel-cta { padding: 20px 18px 22px 18px !important; }
         td.gr-editorial-pad { padding-left: 18px !important; padding-right: 18px !important; }
         .gr-editorial > table > tbody > tr > td, td.gr-editorial-cols { padding-left: 18px !important; padding-right: 18px !important; }
         td.gr-col-text { padding-left: 0 !important; padding-right: 0 !important; }
@@ -89,11 +90,16 @@
             <mj-text css-class="gr-hero-panel-cell" align="left" padding="161px 0 118px 64px">
               <table role="presentation" class="gr-hero-panel" width="277" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; width:277px; background-color:#FFF7F0;">
                 <tr>
-                  <td class="gr-hero-panel-inner" style="padding:16px 20px 20px 20px;">
+                  <td class="gr-hero-panel-inner" style="padding:16px 20px 0 20px;">
 
-                    <p style="margin:0 0 10px 0; font-family:'Libre Caslon Condensed','Libre Caslon Display',Georgia,'Times New Roman',serif; font-weight:500; font-size:28px; line-height:33px; color:#372523;">Greedy For <em style="font-style:italic;">Better</em>, Not More</p>
+                    <p class="gr-hero-headline" style="margin:0 0 10px 0; font-family:'Libre Caslon Condensed','Libre Caslon Display',Georgia,'Times New Roman',serif; font-weight:500; font-size:28px; line-height:33px; color:#372523;">Greedy For <em style="font-style:italic;">Better</em>, Not More</p>
 
-                    <p style="margin:0 0 20px 0; font-size:14px; line-height:20px; color:#372523;">Glow is now Greedy Selfish Haircare. Designed with intention, by experts for the woman who wants better for herself.</p>
+                    <p class="gr-hero-body" style="margin:0; font-size:14px; line-height:20px; color:#372523;">Glow is now Greedy Selfish Haircare. Designed with intention, by experts for the woman who wants better for herself.</p>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td class="gr-hero-panel-cta" style="padding:20px 20px 20px 20px;">
 
                     <!-- Arrow CTA. The rule is a 1px table row so it survives Outlook,
                          and it flexes to whatever width is left. REPLACE both placeholder
