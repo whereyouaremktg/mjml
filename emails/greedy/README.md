@@ -1,0 +1,90 @@
+# Greedy — Klaviyo email build
+
+`greedy-launch-01.mjml` is the source. `greedy-launch-01.html` is the compiled file you
+paste into Klaviyo. Edit the MJML, recompile, paste again — don't hand-edit the HTML.
+
+    npx mjml@5 emails/greedy/greedy-launch-01.mjml -o emails/greedy/greedy-launch-01.html
+
+Compiled output is 39 KB, well under Gmail's 102 KB clipping threshold.
+
+## Paste it into Klaviyo
+
+1. Campaigns → Create campaign → Email → **Drag and drop or HTML** → choose HTML.
+2. Paste the whole contents of `greedy-launch-01.html`, `<!DOCTYPE>` to `</html>`.
+3. Swap every image `src` for a hosted URL. Upload to Klaviyo's image library
+   (Content → Images), copy the URL, replace. Each one is marked in the HTML with a
+   `<!-- REPLACE src with a hosted URL -->` comment, including the hero, which is a
+   CSS/VML **background** on the section, not an `<img>`.
+4. Replace the two `href="#"` placeholders on the Shop Now and The Detangling Brush CTAs.
+5. The footer carries `{% unsubscribe %}`, `{{ organization.name }}` and
+   `{{ organization.full_address }}`. Delete that section if your Klaviyo template
+   already appends a footer — but Klaviyo will not let you send without an
+   unsubscribe link somewhere.
+
+## Image slots
+
+Relative paths under `assets/` render a correct local preview. They are placeholders —
+none of them can ship.
+
+| Slot | Placed at | Export | Notes |
+|---|---|---|---|
+| Hero collage | section background | 575 × 540 (@2x 1150 × 1080) | Both photo cards composited onto white as one file. Left card bleeds to x=0, right card sits at x=233. |
+| Wordmark, white | hero, over the left card | 104 × 23 (@2x 208 × 46) | `assets/greedy-wordmark-white@2x.png` is generated from the SVG and ready to upload. |
+| Inset | between editorial and CTA | 129 × 123 (@2x 258 × 246) | |
+| Lifestyle | full width | 575 × 304 (@2x 1150 × 608) | |
+| Wordmark, ink | under lifestyle | 69 × 15 (@2x 138 × 30) | `assets/greedy-wordmark-ink@2x.png`, ready to upload. |
+
+The hero has to be one composite because email cannot overlap two images and a panel.
+Everything above the cream panel — both cards, the white gap between them, the crop —
+lives in that single file.
+
+## What changed coming out of Figma, and why
+
+The Figma export is an artboard: absolute positioning, flexbox, inline SVG, 10px type.
+None of that survives an email client. The structure below is what the same design
+becomes when it has to render in Outlook and reflow on a phone.
+
+- **Hero overlap** — kept, as a section background image with the cream panel and live
+  text sitting on top. MJML emits the VML rect Outlook needs. The headline, body and CTA
+  stay live text, so they are searchable, translatable, and still readable with images
+  off.
+- **Left rail** — kept. A 24px white gutter from the wrapper, then a 1px ink
+  `border-left` defaulted onto every section. Sections stack with no gap, so it reads as
+  one line down the full height.
+- **Rotated "SHOP NOW" rail label** — dropped. CSS transforms don't render in email, and
+  a rotated PNG in a 24px gutter is unreadable on a phone.
+- **Inline SVG** (wordmark, CTA arrows) — SVG doesn't render in Gmail or Outlook. The
+  wordmarks became PNGs. The arrows became a 1px table rule plus a `→` character, so
+  they stay live, recolourable, and stretch with the layout instead of pixelating.
+- **Editorial three-row magazine flow** — restructured. The artboard runs A|B, then
+  C|image|D, then E|F, with prose reading *down* each column: A→C→E on the left,
+  B→D→F on the right. Stack those rows on a phone and the sentences interleave into
+  nonsense. Same words, now two continuous columns that stack in the right order, with
+  the inset image moved between the columns and the CTA. Not one word was cut.
+- **Body type 10px → 14px/20px** — 10px is unreadable on a phone and iOS silently
+  rescales anything under 13px, which breaks the layout in a way you can't see from a
+  desktop preview. Measure was widened proportionally (357px → 499px) so the
+  characters-per-line stays close to the artboard.
+- **Justified text** — kept above 400px, falls back to ragged right below it. At phone
+  width, justified 14px opens rivers.
+- **Fonts** — the export's Google Fonts request 400s: `Libre Caslon Condensed` is not a
+  Google family, and one bad family fails the whole combined request, so Inter and
+  DM Mono never loaded either. Now three separate requests, with Libre Caslon Display as
+  the nearest Google match. Only Apple Mail and a few others honour webfonts at all;
+  everything else lands on the fallback stacks, which is why `'ABC Marfa'` and
+  `'ABC Marfa Mono'` still lead the stacks for anyone with the licensed faces installed.
+- **Breakpoint** — 480px. Two columns above, one below.
+
+## Still on you
+
+- The duplicated line in the editorial copy: paragraph one ends "More joy. More beauty.
+  More intention." and paragraph two opens "More beauty. More intention." That repeat is
+  in the Figma copy, so it's preserved verbatim here rather than silently edited.
+- Alt text on the lifestyle and inset images is empty — they're decorative. Give the
+  hero and wordmarks real alt text if you want them announced.
+- Litmus/Email on Acid before the first send. The hero background is the piece most
+  worth checking in Outlook 2016 and Windows Mail.
+
+## Preview
+
+`preview/desktop-600.png` and `preview/mobile-390.png`, rendered from the compiled HTML.
