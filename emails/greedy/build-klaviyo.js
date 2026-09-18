@@ -27,14 +27,15 @@ const IMAGES = {
   'assets/greedy-wordmark-ink@2x.png':    'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/80247f8b-1a08-41ac-84de-a5c0fcc67048.png',
   'assets/slot-inset@2x.png':             'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/dc992240-90c3-4587-9ec9-53fb1607d455.png',
   'assets/slot-lifestyle@2x.png':         'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/6354ee07-50f2-4ff3-83ea-eaf5dde5229e.png',
+  'assets/arrow-head@2x.png':             'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/a0ed932d-8c0c-45d0-ad7d-2f3969e02039.png',
 };
 
 let html = fs.readFileSync(SRC, 'utf8');
 
 // --- 1. hosted image URLs -------------------------------------------------
 // The hero appears four times (VML, div shorthand, table attribute, table
-// shorthand); the rest once each. Assert the counts so a miss is not silent.
-const EXPECTED = { 'assets/slot-hero-collage@2x.png': 4 };
+// shorthand) and the CTA arrowhead twice; the rest once each. Assert the counts so a miss is not silent.
+const EXPECTED = { 'assets/slot-hero-collage@2x.png': 4, 'assets/arrow-head@2x.png': 2 };
 for (const [local, cdn] of Object.entries(IMAGES)) {
   const hits = html.split(local).length - 1;
   const want = EXPECTED[local] || 1;

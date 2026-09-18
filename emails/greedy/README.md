@@ -99,6 +99,7 @@ real photography is not mirrored into the repo.)
 | Inset | between editorial and CTA | 129 × 123 (@2x 258 × 246) | |
 | Lifestyle | full width | 575 × 304 (@2x 1150 × 608) | |
 | Wordmark, ink | under lifestyle | 69 × 15 (@2x 138 × 30) | `assets/greedy-wordmark-ink@2x.png`, ready to upload. |
+| CTA arrowhead | end of both arrow CTAs | 8 × 16 (@2x 16 × 32) | `assets/arrow-head@2x.png`. Transparent chevron carrying its own 1px lead-in line at y=8, so it joins the rule seamlessly. |
 
 The hero has to be one composite because email cannot overlap two images and a panel.
 Everything above the cream panel — both cards, the white gap between them, the crop —
