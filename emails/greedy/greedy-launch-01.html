@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="und" dir="auto" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+  <title>Greedy For Better, Not More</title>
+  <!--[if !mso]><!-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--<![endif]-->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    #outlook a {
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    table,
+    td {
+      border-collapse: collapse;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+
+    img {
+      border: 0;
+      height: auto;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+      -ms-interpolation-mode: bicubic;
+    }
+
+    p {
+      display: block;
+      margin: 13px 0;
+    }
+  </style>
+  <!--[if mso]>
+    <noscript>
+    <xml>
+    <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+    </xml>
+    </noscript>
+    <![endif]-->
+  <!--[if lte mso 11]>
+    <style type="text/css">
+      .mj-outlook-group-fix { width:100% !important; }
+    </style>
+    <![endif]-->
+  <!--[if !mso]><!-->
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;display=swap" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;display=swap" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&amp;display=swap" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    @import url(https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;display=swap);
+    @import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;display=swap);
+    @import url(https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&amp;display=swap);
+  </style>
+  <!--<![endif]-->
+  <style type="text/css">
+    @media only screen and (min-width:480px) {
+      .mj-column-per-100 {
+        width: 100% !important;
+        max-width: 100%;
+      }
+
+      .mj-column-per-50 {
+        width: 50% !important;
+        max-width: 50%;
+      }
+    }
+  </style>
+  <style media="screen and (min-width:480px)">
+    .moz-text-html .mj-column-per-100 {
+      width: 100% !important;
+      max-width: 100%;
+    }
+
+    .moz-text-html .mj-column-per-50 {
+      width: 50% !important;
+      max-width: 50%;
+    }
+  </style>
+  <style type="text/css">
+    @media only screen and (max-width:479px) {
+      table.mj-full-width-mobile {
+        width: 100% !important;
+      }
+
+      td.mj-full-width-mobile {
+        width: auto !important;
+      }
+    }
+  </style>
+  <style type="text/css">
+    a {
+      color: inherit;
+    }
+
+    .gr-body-copy p {
+      margin: 0 0 12px 0;
+    }
+
+    .gr-body-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Phone overrides. The hero cream panel goes full width and rides higher over
+         the collage; the editorial measure opens up to the full content width. */
+    @media only screen and (max-width: 480px) {
+      td.gr-hero-panel-cell {
+        padding: 108px 16px 28px 16px !important;
+      }
+
+      table.gr-hero-panel {
+        width: 100% !important;
+      }
+
+      td.gr-hero-panel-inner {
+        padding: 20px 18px 0 18px !important;
+      }
+
+      td.gr-hero-panel-cta {
+        padding: 20px 18px 22px 18px !important;
+      }
+
+      td.gr-editorial-pad {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+      }
+
+      .gr-editorial>table>tbody>tr>td,
+      td.gr-editorial-cols {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+      }
+
+      td.gr-col-text {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+
+      td.gr-col-left {
+        padding-bottom: 12px !important;
+      }
+
+      td.gr-hero-wordmark-cell {
+        padding: 12px 0 0 14px !important;
+      }
+    }
+
+    /* Justified text needs a decent measure. Below ~360px it turns into rivers,
+         so fall back to ragged right on the narrowest phones. */
+    @media only screen and (max-width: 400px) {
+
+      .gr-body-copy div,
+      .gr-body-copy p {
+        text-align: left !important;
+      }
+    }
+  </style>
+  <!-- Columns stack below this width. 480 keeps two columns on tablets, one on phones. -->
+  <!--
+      One request per family. The original export asked Google for "Libre Caslon
+      Condensed", which does not exist there - that single bad family made the whole
+      combined request 400, so Inter and DM Mono never loaded either. Libre Caslon
+      Display is the nearest Google match; 'Libre Caslon Condensed' stays first in the
+      stack so anyone with the licensed face installed still gets it.
+    -->
+</head>
+
+<body style="word-spacing:normal;background-color:#E9E9E9;">
+  <div style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">Glow is now Greedy Selfish Haircare. Designed with intention, by experts.</div>
+  <div aria-label="Greedy For Better, Not More" aria-roledescription="email" role="article" lang="und" dir="auto" style="word-spacing:normal;background-color:#E9E9E9;">
+    <!-- 24px white gutter, then the 1px ink rail, then 575px of content. The rail is
+         a border-left defaulted onto every section in mj-attributes; because sections
+         stack with no gap between them it reads as one line down the whole email,
+         the way the Figma artboard has it. -->
+    <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="gr-frame-outlook" role="presentation" style="width:600px;" width="600" bgcolor="#FFFFFF" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    <div class="gr-frame" style="background:#FFFFFF;background-color:#FFFFFF;margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:0 0 0 24px;text-align:center;">
+              <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><![endif]-->
+              <!-- SECTION: hero-collage ................................................
+             REPLACE the hero with a hosted URL. It is a section BACKGROUND, not an
+             <img>, so the path is emitted four times just below: the Outlook VML
+             <v:image src>, the div background shorthand, the table background
+             attribute, and the table background shorthand. Find and replace every
+             occurrence of the path - missing one leaves the hero blank in either
+             Outlook or everything else. 575x540 (@2x 1150x1080). -->
+              <!--[if mso | IE]><tr><td class="gr-hero-outlook" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="gr-hero-outlook" role="presentation" style="width:576px;" width="576" bgcolor="#FFFFFF" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><v:rect style="width:576px;" xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false"><v:fill origin="0, -0.5" position="0, -0.5" src="assets/slot-hero-collage@2x.png" color="#FFFFFF" type="frame" size="1,1" aspect="atleast" /><v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0"><![endif]-->
+              <div class="gr-hero" style="background:#FFFFFF url('assets/slot-hero-collage@2x.png') center top / cover no-repeat;background-position:center top;background-repeat:no-repeat;background-size:cover;margin:0px auto;max-width:576px;">
+                <div style="line-height:0;font-size:0;">
+                  <table align="center" background="assets/slot-hero-collage@2x.png" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF url('assets/slot-hero-collage@2x.png') center top / cover no-repeat;background-position:center top;background-repeat:no-repeat;background-size:cover;width:100%;">
+                    <tbody>
+                      <tr>
+                        <td style="border-left:1px solid #372523;direction:ltr;font-size:0px;padding:0;text-align:center;">
+                          <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:575px;" ><![endif]-->
+                          <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                            <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                              <tbody>
+                                <tr>
+                                  <td style="vertical-align:top;padding:0;">
+                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                                      <tbody>
+                                        <!-- REPLACE src with a hosted URL. Wordmark, white, transparent PNG,
+                 104x23 (@2x 208x46). The PNG is generated and ready to upload. -->
+                                        <tr>
+                                          <td align="left" class="gr-hero-wordmark" style="font-size:0px;padding:10px 0 0 12px;word-break:break-word;">
+                                            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                              <tbody>
+                                                <tr>
+                                                  <td style="width:104px;">
+                                                    <img alt="Greedy" src="assets/greedy-wordmark-white@2x.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="104" height="auto" />
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td align="left" class="gr-hero-panel-cell" style="font-size:0px;padding:161px 0 118px 64px;word-break:break-word;">
+                                            <div style="font-family:'ABC Marfa', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:left;color:#372523;">
+                                              <table role="presentation" class="gr-hero-panel" width="277" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; width:277px; background-color:#FFF7F0;">
+                                                <tr>
+                                                  <td class="gr-hero-panel-inner" style="padding:16px 20px 0 20px;">
+                                                    <p class="gr-hero-headline" style="margin:0 0 10px 0; font-family:'Libre Caslon Condensed','Libre Caslon Display',Georgia,'Times New Roman',serif; font-weight:500; font-size:28px; line-height:33px; color:#372523;">Greedy For <em style="font-style:italic;">Better</em>, Not More</p>
+                                                    <p class="gr-hero-body" style="margin:0; font-size:14px; line-height:20px; color:#372523;">Glow is now Greedy Selfish Haircare. Designed with intention, by experts for the woman who wants better for herself.</p>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="gr-hero-panel-cta" style="padding:20px 20px 20px 20px;">
+                                                    <!-- Arrow CTA. The rule is an 8px cell with a 1px border-bottom (border-collapse:
+     separate, so the border stays inside the cell instead of straddling the row
+     boundary) and the
+                         chevron is a 16px-tall PNG that carries its own lead-in line at the same y,
+                         so the two join as one continuous line in every client, Outlook included.
+                         Label and chevron are separate anchors with the same destination so the
+                         whole row is tappable. -->
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                                                      <tr>
+                                                        <td valign="middle" style="padding:0 8px 0 0; font-family:'ABC Marfa Mono','DM Mono','Courier New',Courier,monospace; font-weight:500; font-size:14px; line-height:16px; text-transform:uppercase; color:#372523; white-space:nowrap;">
+                                                          <a href="https://www.greedyhaircare.com/collections/greedy-lineup" style="color:#372523; text-decoration:none;">Shop Now</a>
+                                                        </td>
+                                                        <td valign="middle" width="100%" style="font-size:0; line-height:0;">
+                                                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate; border-spacing:0;">
+                                                            <tr>
+                                                              <td height="8" style="height:8px; line-height:8px; font-size:1px; mso-line-height-rule:exactly; border-bottom:1px solid #372523;">&#160;</td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td height="7" style="height:7px; line-height:7px; font-size:1px; mso-line-height-rule:exactly;">&#160;</td>
+                                                            </tr>
+                                                          </table>
+                                                        </td>
+                                                        <td valign="middle" width="8" style="width:8px; font-size:0; line-height:0;">
+                                                          <a href="https://www.greedyhaircare.com/collections/greedy-lineup" style="text-decoration:none;"><img src="assets/arrow-head@2x.png" width="8" height="16" alt="" style="display:block; width:8px; height:16px; border:0; outline:none;" /></a>
+                                                        </td>
+                                                      </tr>
+                                                    </table>
+                                                  </td>
+                                                </tr>
+                                              </table>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <!--[if mso | IE]></td></tr></table><![endif]-->
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!--[if mso | IE]></v:textbox></v:rect></td></tr></table></td></tr><![endif]-->
+              <!-- SECTION: editorial-two-col ........................................... -->
+              <!--[if mso | IE]><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:576px;" width="576" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+              <div style="margin:0px auto;max-width:576px;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                  <tbody>
+                    <tr>
+                      <td style="border-left:1px solid #372523;direction:ltr;font-size:0px;padding:40px 0 0;text-align:center;">
+                        <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:575px;" ><![endif]-->
+                        <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                            <tbody>
+                              <tr>
+                                <td style="vertical-align:top;padding:0;">
+                                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                                    <tbody>
+                                      <tr>
+                                        <td align="center" class="gr-editorial-pad" style="font-size:0px;padding:0 38px;word-break:break-word;">
+                                          <div style="font-family:'Libre Caslon Condensed','Libre Caslon Display',Georgia,'Times New Roman',serif;font-size:28px;font-weight:500;line-height:33px;text-align:center;color:#372523;">Let&#8217;s Get Greedy.</div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td align="center" style="font-size:0px;padding:18px 0 0;word-break:break-word;">
+                                          <div style="font-family:'ABC Marfa', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:center;color:#372523;">
+                                            <table role="presentation" align="center" width="1" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; margin:0 auto;">
+                                              <tr>
+                                                <td width="1" height="84" style="width:1px; height:84px; line-height:84px; font-size:1px; background-color:#372523;">&#160;</td>
+                                              </tr>
+                                            </table>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--[if mso | IE]></td></tr></table><![endif]-->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--[if mso | IE]></td></tr></table></td></tr><![endif]-->
+              <!--
+          The Figma artboard runs this as a true magazine flow: three rows of
+          columns with an image nested between them. Reading order down the page is
+          left column A > C > E, right column B > D > F, which only holds together
+          while both columns are visible. Stacked on a phone it would scramble the
+          sentences, so the same words are set as two continuous columns that stack
+          in the right order, with the inset image between the columns and the CTA.
+        -->
+              <!--[if mso | IE]><tr><td class="gr-editorial-outlook" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="gr-editorial-outlook" role="presentation" style="width:576px;" width="576" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+              <div class="gr-editorial" style="margin:0px auto;max-width:576px;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                  <tbody>
+                    <tr>
+                      <td style="border-left:1px solid #372523;direction:ltr;font-size:0px;padding:22px 38px 0;text-align:center;">
+                        <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="gr-editorial-col-outlook" style="vertical-align:top;width:250px;" ><![endif]-->
+                        <div class="mj-column-per-50 mj-outlook-group-fix gr-editorial-col" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                            <tbody>
+                              <tr>
+                                <td style="vertical-align:top;padding:0;">
+                                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                                    <tbody>
+                                      <tr>
+                                        <td align="justify" class="gr-body-copy gr-col-text gr-col-left" style="font-size:0px;padding:0 8px 0 0;word-break:break-word;">
+                                          <div style="font-family:'ABC Marfa', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:justify;color:#372523;">
+                                            <p><span style="font-family:'ABC Marfa Mono','DM Mono','Courier New',Courier,monospace; font-weight:500; letter-spacing:0.04em;">GREEDY IS A GOOD THING.</span> Somewhere along the way, wanting more became something we were supposed to apologize for. More joy. More beauty. More intention.</p>
+                                            <p>More beauty. More intention. Better quality. Better design. Better for ourselves. We were told to be grateful for what we get. To not ask for too much. To take what works and call it good enough. Greedy is about knowing what you want and refusing to feel bad for wanting it. It&#8217;s having standards. Paying attention. Choosing the things that make the everyday feel better, look better, work better.</p>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--[if mso | IE]></td><td class="gr-editorial-col-outlook" style="vertical-align:top;width:250px;" ><![endif]-->
+                        <div class="mj-column-per-50 mj-outlook-group-fix gr-editorial-col" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                            <tbody>
+                              <tr>
+                                <td style="vertical-align:top;padding:0;">
+                                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                                    <tbody>
+                                      <tr>
+                                        <td align="justify" class="gr-body-copy gr-col-text gr-col-right" style="font-size:0px;padding:0 0 0 8px;word-break:break-word;">
+                                          <div style="font-family:'ABC Marfa', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:justify;color:#372523;">
+                                            <p>Because more doesn&#8217;t have to mean more stuff. Sometimes more means more considered. More thoughtful. More beautiful. More you. That belief is behind everything we make.</p>
+                                            <p>Every detail has a reason. Every color tells a story. Every material is considered. Every product is tested, obsessed over, changed, tested again and made better until it earns its place in your life. We believe intention lives there. Not in excess for the sake of excess, but in the tiny details someone cared enough to get right. This isn&#8217;t just a hairbrush. It&#8217;s a higher standard.</p>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--[if mso | IE]></td></tr></table><![endif]-->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:576px;" width="576" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+              <div style="margin:0px auto;max-width:576px;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                  <tbody>
+                    <tr>
+                      <td style="border-left:1px solid #372523;direction:ltr;font-size:0px;padding:28px 0 0;text-align:center;">
+                        <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:575px;" ><![endif]-->
+                        <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                            <tbody>
+                              <tr>
+                                <td style="vertical-align:top;padding:0;">
+                                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                                    <tbody>
+                                      <!-- REPLACE src with a hosted URL. Inset image, 129x123 (@2x 258x246). -->
+                                      <tr>
+                                        <td align="center" style="font-size:0px;padding:0;word-break:break-word;">
+                                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                            <tbody>
+                                              <tr>
+                                                <td style="width:129px;">
+                                                  <img alt="" src="assets/slot-inset@2x.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="129" height="auto" />
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--[if mso | IE]></td></tr></table><![endif]-->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:576px;" width="576" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+              <div style="margin:0px auto;max-width:576px;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                  <tbody>
+                    <tr>
+                      <td style="border-left:1px solid #372523;direction:ltr;font-size:0px;padding:34px 24px 0;text-align:center;">
+                        <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:527px;" ><![endif]-->
+                        <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                            <tbody>
+                              <tr>
+                                <td style="vertical-align:top;padding:0;">
+                                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                                    <tbody>
+                                      <tr>
+                                        <td align="center" style="font-size:0px;padding:0;word-break:break-word;">
+                                          <div style="font-family:'ABC Marfa', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:center;color:#372523;"><!-- Arrow CTA. The rule is an 8px cell with a 1px border-bottom (border-collapse:
+     separate, so the border stays inside the cell instead of straddling the row
+     boundary) and the
+                   chevron is a 16px-tall PNG that carries its own lead-in line at the same y,
+                   so the two join as one continuous line in every client, Outlook included.
+                   Label and chevron are separate anchors with the same destination so the
+                   whole row is tappable. -->
+                                            <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; margin:0 auto;">
+                                              <tr>
+                                                <td valign="middle" style="padding:0 12px 0 0; font-family:'ABC Marfa Mono','DM Mono','Courier New',Courier,monospace; font-weight:500; font-size:14px; line-height:16px; text-transform:uppercase; color:#372523; white-space:nowrap;">
+                                                  <a href="https://www.greedyhaircare.com/collections/greedy-lineup" style="color:#372523; text-decoration:none;">The Detangling Brush</a>
+                                                </td>
+                                                <td valign="middle" width="70" style=" width:70px;font-size:0; line-height:0;">
+                                                  <table role="presentation" width="70" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate; border-spacing:0; width:70px;">
+                                                    <tr>
+                                                      <td height="8" style="height:8px; line-height:8px; font-size:1px; mso-line-height-rule:exactly; border-bottom:1px solid #372523;">&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="7" style="height:7px; line-height:7px; font-size:1px; mso-line-height-rule:exactly;">&#160;</td>
+                                                    </tr>
+                                                  </table>
+                                                </td>
+                                                <td valign="middle" width="8" style="width:8px; font-size:0; line-height:0;">
+                                                  <a href="https://www.greedyhaircare.com/collections/greedy-lineup" style="text-decoration:none;"><img src="assets/arrow-head@2x.png" width="8" height="16" alt="" style="display:block; width:8px; height:16px; border:0; outline:none;" /></a>
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--[if mso | IE]></td></tr></table><![endif]-->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--[if mso | IE]></td></tr></table></td></tr><![endif]-->
+              <!-- SECTION: lifestyle-break ............................................. -->
+              <!--[if mso | IE]><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:576px;" width="576" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+              <div style="margin:0px auto;max-width:576px;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                  <tbody>
+                    <tr>
+                      <td style="border-left:1px solid #372523;direction:ltr;font-size:0px;padding:52px 0 0;text-align:center;">
+                        <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:575px;" ><![endif]-->
+                        <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                            <tbody>
+                              <tr>
+                                <td style="vertical-align:top;padding:0;">
+                                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                                    <tbody>
+                                      <!-- REPLACE src with a hosted URL. Lifestyle image, 575x304 (@2x 1150x608). -->
+                                      <tr>
+                                        <td align="center" style="font-size:0px;padding:0;word-break:break-word;">
+                                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                            <tbody>
+                                              <tr>
+                                                <td style="width:575px;">
+                                                  <img alt="" src="assets/slot-lifestyle@2x.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="575" height="auto" />
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                      <!-- REPLACE src with a hosted URL. Wordmark, ink, transparent PNG,
+                 69x15 (@2x 138x30). The PNG is generated and ready to upload. -->
+                                      <tr>
+                                        <td align="center" style="font-size:0px;padding:10px 0 0;word-break:break-word;">
+                                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                            <tbody>
+                                              <tr>
+                                                <td style="width:69px;">
+                                                  <img alt="Greedy" src="assets/greedy-wordmark-ink@2x.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="69" height="auto" />
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--[if mso | IE]></td></tr></table><![endif]-->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--[if mso | IE]></td></tr></table></td></tr><![endif]-->
+              <!-- SECTION: footer (Klaviyo tags - delete if your Klaviyo template adds one) -->
+              <!--[if mso | IE]><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:576px;" width="576" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+              <div style="margin:0px auto;max-width:576px;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                  <tbody>
+                    <tr>
+                      <td style="border-left:1px solid #372523;direction:ltr;font-size:0px;padding:28px 38px 30px;text-align:center;">
+                        <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:499px;" ><![endif]-->
+                        <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                            <tbody>
+                              <tr>
+                                <td style="vertical-align:top;padding:0;">
+                                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                                    <tbody>
+                                      <tr>
+                                        <td align="center" style="font-size:0px;padding:0;word-break:break-word;">
+                                          <div style="font-family:'ABC Marfa Mono','DM Mono','Courier New',Courier,monospace;font-size:11px;line-height:18px;text-align:center;color:#827A76;">{{ organization.name }}<br />
+                                            {{ organization.full_address }}<br /> {% unsubscribe %}
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--[if mso | IE]></td></tr></table><![endif]-->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--[if mso | IE]></td></tr></table></td></tr></table><![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]></td></tr></table><![endif]-->
+  </div>
+</body>
+
+</html>
