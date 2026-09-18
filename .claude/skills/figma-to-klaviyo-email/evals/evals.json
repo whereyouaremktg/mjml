@@ -3,21 +3,55 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Here's the Figma frame for the next Greedy campaign email (Detangling Brush restock): https://www.figma.com/design/4v1h28IeyXevRYwOroCQPr/Glow-Master?node-id=491-16345 — same layout as the launch email, new photography and copy. I need it responsive and in Klaviyo. Don't create the Klaviyo template yet, just build everything and show me the previews.",
+      "prompt": "Here's the Figma frame for the next Greedy campaign email, the Detangling Brush restock: https://www.figma.com/design/4v1h28IeyXevRYwOroCQPr/Glow-Master?node-id=491-16345 . Use it for the layout and the photography - same collage hero, editorial section, lifestyle break. New copy for this one:\n- Hero headline: Back, and Better. (italic on 'Better')\n- Hero body: The Detangling Brush is back in stock. Same brush. Same standard. Made to be wanted.\n- Hero CTA: Shop the Restock -> https://www.greedyhaircare.com/collections/greedy-lineup\n- Editorial headline: Worth the Wait.\n- Editorial copy, left: It sold out because it works. Metal bristles that glide through knots, a drainage hole so it dries between uses, a weight that feels considered the second you pick it up. Nothing about it is an accident.\n- Editorial copy, right: We could have rushed the next run. We didn't. Every brush in this batch went through the same testing as the first, because a higher standard is not a launch-week thing. It is the whole point.\n- Editorial CTA: The Detangling Brush -> same link\nI need it responsive and in Klaviyo. Don't create the Klaviyo template yet - build everything and show me the previews.",
       "expected_output": "A campaign folder with a validated MJML built from the Greedy template, compiled HTML, a Klaviyo build with placeholder or real image URLs, previews at both breakpoints, measure.js output showing hero 540 and CTA delta 0, and a README. Stops before creating the Klaviyo template because the user said so, and reports what it needs to finish.",
-      "files": []
+      "files": [],
+      "assertions": [
+        "MJML source present and compiles with `mjml --validate` reporting no errors or warnings",
+        "Hero section renders exactly 540px tall at an 800px viewport (composite height, no crop)",
+        "Both CTAs use a chevron image (arrow-head PNG) after a rule, not a text arrow glyph; rule table uses border-collapse:separate; measured line offset between rule and chevron is 0 on desktop and mobile",
+        "Body copy is set at 14px or larger (no 10px/12px body text carried over from the artboard)",
+        "Editorial prose is two 50% columns that stack on mobile, not row-by-row columns",
+        "Google Fonts are requested one family per request and no request names Libre+Caslon+Condensed",
+        "All four CTA anchors (label + chevron on each CTA) point to https://www.greedyhaircare.com/collections/greedy-lineup and no href=\"#\" remains",
+        "Layout carries the rail: wrapper padding-left 24px and border-left 1px #372523 on every section, content width 575",
+        "The supplied restock copy is used verbatim, including 'Back, and Better.' with 'Better' in italics and 'Worth the Wait.'",
+        "Preview screenshots exist for desktop and mobile, plus a README with build commands and an image slot table",
+        "No Klaviyo template was created (task said not yet); REPORT.md states this and describes what would be sent",
+        "REPORT.md flags anything it could not finish (real photography upload, Klaviyo write) rather than claiming completion"
+      ]
     },
     {
       "id": 2,
-      "prompt": "The arrow on the hero CTA in our Klaviyo email looks broken again — there's a gap between the line and the arrowhead. Template is Wv3ti4, source is in emails/greedy/. Can you fix it and push the fix everywhere it needs to go?",
+      "prompt": "The arrow on the hero CTA in our Klaviyo email looks broken again - there's a gap between the line and the arrowhead, and it looks like the arrowhead sits a bit low. The Klaviyo template is Wv3ti4 and the source is in emails/greedy/ (a copy of that folder is in the input directory). Fix it and push the fix everywhere it needs to go.",
       "expected_output": "Diagnoses via measure.js (CTA delta), identifies the rule table's border-collapse or a glyph regression, fixes the MJML, rebuilds both outputs, verifies delta 0 on both breakpoints with crops, commits, and updates the Klaviyo template with the built file (or confirms with the user before the Klaviyo write if the session hasn't authorised it).",
-      "files": []
+      "files": [],
+      "assertions": [
+        "REPORT.md correctly diagnoses the cause: a text arrow glyph after a separately drawn rule (and/or the rule's border geometry), not fonts or images",
+        "Fixed MJML uses the chevron PNG + an 8px rule cell with border-bottom on BOTH CTAs, with border-collapse:separate on the rule table",
+        "Measured rule-to-chevron offset is exactly 0 at both CTAs on both breakpoints, with zoomed crops saved as evidence",
+        "Compiled HTML and Klaviyo HTML are both rebuilt and consistent (Klaviyo HTML references the chevron twice; the build script's expectations updated accordingly)",
+        "Hero height is unchanged at 540px after the fix",
+        "Did not modify /home/user/mjml/emails/greedy or commit/push; worked on the input copy in the outputs directory",
+        "Did not update Klaviyo template Wv3ti4; REPORT.md states the exact update call it would make and that the built file (not a hand edit) is what should be sent"
+      ]
     },
     {
       "id": 3,
-      "prompt": "I have an HTML.to.design export of a new email design for Greedy (attached as greedy-spring-01.html). Make it work in email — it's got the usual absolute positioning mess. I don't have the Figma link handy.",
+      "prompt": "I have an HTML.to.design export of a new Greedy email design (greedy-spring-01.html in the input directory). Make it work in email - it's got the usual absolute positioning mess. I don't have the Figma link handy.",
       "expected_output": "Asks for the Figma frame link because the photography lives there, but proceeds with the build using placeholders: rebuilds the layout in MJML following the structure rules (rail, hero background, stacked columns, arrow CTAs, 14px body, separate mj-font per family), compiles, verifies with measure.js, produces previews and a README noting what changed from the artboard and why, and lists what's still needed (photography, links, Klaviyo account confirmation).",
-      "files": []
+      "files": [],
+      "assertions": [
+        "Notes that the photography lives in Figma and asks for / records the need for the frame link, while still completing the build with placeholders",
+        "MJML rebuilds the artboard under the structural rules: wrapper padding-left 24 + section border-left rail, hero as a section background-url with the cream panel as live text on top, 575 content width",
+        "Body copy at 14px or larger; editorial prose as two stacking columns with the column-break sentences rejoined ('The ones that do tend to be...' and 'louder, because the quiet version...')",
+        "Both arrow CTAs use the chevron PNG + rule construction with measured offset 0 on both breakpoints",
+        "One Google Fonts request per family; no Libre+Caslon+Condensed request",
+        "Adapts to this export's geometry: lifestyle slot is 575 x 360 (not the launch email's 304)",
+        "Copy is carried verbatim from the export, including 'Spring, Selfishly', 'Less, But Louder.' and 'Welcome to a Greedy State of Mind.'",
+        "Placeholder slot images generated; preview screenshots for desktop and mobile; README lists what is still needed (photography, links confirmation, Klaviyo account confirmation)",
+        "Compiles clean with mjml --validate and the hero section is 540px tall"
+      ]
     }
   ]
 }
