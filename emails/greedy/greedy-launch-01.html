@@ -188,7 +188,13 @@
           <tr>
             <td style="direction:ltr;font-size:0px;padding:0 0 0 24px;text-align:center;">
               <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><![endif]-->
-              <!-- SECTION: hero-collage ................................................ -->
+              <!-- SECTION: hero-collage ................................................
+             REPLACE the hero with a hosted URL. It is a section BACKGROUND, not an
+             <img>, so the path is emitted four times just below: the Outlook VML
+             <v:image src>, the div background shorthand, the table background
+             attribute, and the table background shorthand. Find and replace every
+             occurrence of the path - missing one leaves the hero blank in either
+             Outlook or everything else. 575x540 (@2x 1150x1080). -->
               <!--[if mso | IE]><tr><td class="gr-hero-outlook" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="gr-hero-outlook" role="presentation" style="width:576px;" width="576" bgcolor="#FFFFFF" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><v:rect style="width:576px;" xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false"><v:fill origin="0, -0.5" position="0, -0.5" src="assets/slot-hero-collage@2x.png" color="#FFFFFF" type="frame" size="1,1" aspect="atleast" /><v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0"><![endif]-->
               <div class="gr-hero" style="background:#FFFFFF url('assets/slot-hero-collage@2x.png') center top / cover no-repeat;background-position:center top;background-repeat:no-repeat;background-size:cover;margin:0px auto;max-width:576px;">
                 <div style="line-height:0;font-size:0;">
@@ -228,7 +234,10 @@
                                                     <p style="margin:0 0 10px 0; font-family:'Libre Caslon Condensed','Libre Caslon Display',Georgia,'Times New Roman',serif; font-weight:500; font-size:28px; line-height:33px; color:#372523;">Greedy For <em style="font-style:italic;">Better</em>, Not More</p>
                                                     <p style="margin:0 0 20px 0; font-size:14px; line-height:20px; color:#372523;">Glow is now Greedy Selfish Haircare. Designed with intention, by experts for the woman who wants better for herself.</p>
                                                     <!-- Arrow CTA. The rule is a 1px table row so it survives Outlook,
-                         and it flexes to whatever width is left. -->
+                         and it flexes to whatever width is left. REPLACE both placeholder
+                         links below - the label and the arrow are separate anchors so
+                         the whole CTA is tappable, and both need the same
+                         destination. -->
                                                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
                                                       <tr>
                                                         <td valign="middle" style="padding:0 8px 0 0; font-family:'ABC Marfa Mono','DM Mono','Courier New',Courier,monospace; font-weight:500; font-size:14px; line-height:16px; text-transform:uppercase; color:#372523; white-space:nowrap;">
@@ -435,7 +444,9 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" style="font-size:0px;padding:0;word-break:break-word;">
-                                          <div style="font-family:'ABC Marfa', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:center;color:#372523;">
+                                          <div style="font-family:'ABC Marfa', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:center;color:#372523;"><!-- REPLACE both placeholder links below - the label and the arrow are
+                   separate anchors so the whole CTA is tappable, and both need the
+                   same destination. -->
                                             <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; margin:0 auto;">
                                               <tr>
                                                 <td valign="middle" style="padding:0 12px 0 0; font-family:'ABC Marfa Mono','DM Mono','Courier New',Courier,monospace; font-weight:500; font-size:14px; line-height:16px; text-transform:uppercase; color:#372523; white-space:nowrap;">

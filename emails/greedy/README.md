@@ -11,11 +11,31 @@ Compiled output is 39 KB, well under Gmail's 102 KB clipping threshold.
 
 1. Campaigns → Create campaign → Email → **Drag and drop or HTML** → choose HTML.
 2. Paste the whole contents of `greedy-launch-01.html`, `<!DOCTYPE>` to `</html>`.
-3. Swap every image `src` for a hosted URL. Upload to Klaviyo's image library
-   (Content → Images), copy the URL, replace. Each one is marked in the HTML with a
-   `<!-- REPLACE src with a hosted URL -->` comment, including the hero, which is a
-   CSS/VML **background** on the section, not an `<img>`.
-4. Replace the two `href="#"` placeholders on the Shop Now and The Detangling Brush CTAs.
+3. Swap every image path for a hosted URL. Upload to Klaviyo's image library
+   (Content → Images), copy the URL, then **find and replace the path, not the
+   `src=`** — one of the five appears more than once:
+
+   | Path to find | Occurrences |
+   |---|---|
+   | `assets/slot-hero-collage@2x.png` | **4** |
+   | `assets/greedy-wordmark-white@2x.png` | 1 |
+   | `assets/slot-inset@2x.png` | 1 |
+   | `assets/slot-lifestyle@2x.png` | 1 |
+   | `assets/greedy-wordmark-ink@2x.png` | 1 |
+
+   The hero is a section **background**, not an `<img>`, so its path is emitted four
+   times: the Outlook VML `<v:image src>`, the `<div>` background shorthand, the
+   `<table background="">` attribute, and the table's background shorthand. Replace
+   one and miss another and the hero goes blank in either Outlook or everything else.
+   The comment above that block in the HTML says the same thing.
+4. Replace all **four** `href="#"` placeholders — two per CTA. The label and the arrow
+   are separate anchors, so the whole CTA is tappable rather than just the small text
+   run; give both anchors in a CTA the same destination.
+
+   | CTA | Anchors |
+   |---|---|
+   | Shop Now (hero) | label + arrow |
+   | The Detangling Brush (editorial) | label + arrow |
 5. The footer carries `{% unsubscribe %}`, `{{ organization.name }}` and
    `{{ organization.full_address }}`. Delete that section if your Klaviyo template
    already appends a footer — but Klaviyo will not let you send without an
