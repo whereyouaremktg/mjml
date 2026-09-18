@@ -5,7 +5,8 @@
  *   - hero section height (should equal the collage height, 540 for Greedy)
  *   - editorial column width (two columns on desktop, one on phone)
  *   - CTA join: the rule's border-bottom y vs the chevron image's line y
- *     (delta must be exactly 0 or the arrow reads as broken)
+ *     (delta must be exactly 0 or the arrow reads as broken); fewer chevrons than
+ *     EXPECT_CTAS (default 2) is a failure - a glyph regression has none to measure
  * Also writes full-page screenshots and 3x crops of every CTA.
  *
  *   node measure.js <compiled.html> <out-dir>
@@ -53,6 +54,11 @@ const exe = process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium-1194/chrome-
   }
   await b.close();
   console.log(JSON.stringify(results, null, 1));
+  // A CTA that has lost its chevron image (e.g. regressed to a text glyph) has nothing
+  // to measure, so an empty list must be a failure, not a pass. EXPECT_CTAS overrides.
+  const expect = +(process.env.EXPECT_CTAS || 2);
+  const short = Object.entries(results).filter(([, r]) => r.ctas.length < expect);
+  if (short.length) { console.error(`expected ${expect} chevron CTAs, found:`, short.map(([k, r]) => `${k}=${r.ctas.length}`).join(' ')); process.exit(1); }
   const bad = Object.values(results).flatMap(r => r.ctas).filter(c => c.error || c.delta !== 0);
   if (bad.length) { console.error('CTA join not exact:', JSON.stringify(bad)); process.exit(1); }
 })();

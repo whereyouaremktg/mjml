@@ -36,6 +36,7 @@ Plus a Klaviyo template (`USER_DRAGGABLE`) in the brand's account, and a short r
 
 - `npx mjml@5` compiles; the `mjml` fork at HEAD is the same version, so the published package is fine.
 - The scripts in `scripts/` use Playwright. Install it once in a scratch directory (`npm install playwright`) and run the scripts with `NODE_PATH=<that>/node_modules`. In the remote sandbox Chromium is preinstalled — the scripts default to `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`; set `CHROMIUM_PATH` elsewhere. Don't run `playwright install`.
+- Previews render with system fallbacks unless Chromium can reach Google Fonts; in the remote sandbox that means launching with `proxy: { server: process.env.HTTPS_PROXY }` (fonts.googleapis.com is allowed through the proxy). Not required for the measurements, but it makes the previews honest about the fallback faces real clients will use.
 - Always create pages with `browser.newContext({ viewport, deviceScaleFactor, isMobile })`. Options passed to `browser.newPage()` are ignored and you get plausible-looking 1280×720 screenshots of the wrong thing — that cost a round of debugging.
 
 ## The pipeline

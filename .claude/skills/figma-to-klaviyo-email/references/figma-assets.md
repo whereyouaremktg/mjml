@@ -10,6 +10,9 @@ Do step 2 within a few minutes of step 1; the URLs expire.
 
 ## Finding the slots
 
+Fetch a known frame by its node id (`get_metadata` with `nodeId`), not by walking the page: `get_metadata` on the page lists top-level frames only, and a campaign frame nested inside a section or another frame will be missing from that listing while fetching it directly works fine. One run concluded the Launch 01 frame "wasn't in the file" for exactly this reason. Known ids live in `greedy-design-system.md`; when the user gives a URL, the `node-id=491-16345` query param is the id with `-` → `:`.
+
+
 `get_metadata` on the frame lists every node with x/y/w/h. Image slots are the `rounded-rectangle` (or `rectangle`) nodes at the artboard's photo positions — for Greedy: `Rectangle 5` (hero L), `Rectangle 6` (hero R), `Rectangle 8` (inset), `Rectangle 9` (lifestyle). `download_assets` on the *frame* returns every raw fill in the subtree (two per rectangle — Figma keeps the source and the crop), which is ambiguous; call it per rectangle node instead so mapping is certain. Prefer the node's **export** over its raw images: the export has Figma's crop applied.
 
 Always `defaultFormat: "png"`, `defaultScale: 2`.

@@ -21,6 +21,10 @@ The layout stays locked as code; specific cells become editable in Klaviyo's UI:
 - Images can be `klaviyo-image-block`s, but the hero can't — it's a CSS/VML **background**, not an `<img>`. Swap it by rebuilding. Wordmarks, CTA rows and the rail are left structural on purpose: editable there just invites breakage.
 - `get_email_template` returns `definition: null` for hybrid templates — the API doesn't expose the parsed regions, so tell the user to open the editor once and confirm the four regions surface before a campaign is built on it.
 
+## After the agency edits in the UI
+
+Klaviyo's hybrid editor wraps region contents in its own component wrapper when a template is saved from the UI, which can add a few pixels of padding around each region. The hero section is tuned to exactly the collage height, so after the first in-editor save it is worth re-measuring (or eyeballing the hero bottom edge against the collage) — if it drifted, trim the panel cell's bottom padding in the MJML by the same amount and push again. Unverified from the API; reported by one run.
+
 ## Editor warnings
 
 `Unknown node "link"` ×3 → the Google Fonts `<link rel="stylesheet">` tags MJML emits from `mj-font`. The editor parses the HTML into its own node model and doesn't know `<link>`. `build-klaviyo.js` strips them; the `@import` rules in the `<style>` right after cover the same clients. It also un-escapes `&amp;` inside those `@import` URLs — `<style>` content is raw text, so the entity was going to Google literally.

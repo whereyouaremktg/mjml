@@ -4,8 +4,9 @@
  *
  *   node build-klaviyo.js <compiled.html> <out.klaviyo.html> [config.json]
  *
- * It does four things, each asserted so a structural change in the MJML fails
+ * It does five things, each asserted so a structural change in the MJML fails
  * the build loudly instead of quietly shipping a broken template:
+ *   0. refuses any text arrow glyph in the body (a regressed CTA)
  *   1. swaps local image paths for Klaviyo image-library CDN URLs
  *   2. drops the Google Fonts <link> tags (Klaviyo's hybrid editor warns
  *      "Unknown node 'link'" per tag; the @import rules cover the same clients)
@@ -41,6 +42,16 @@ const cfg = Object.assign({}, defaults, CFG ? JSON.parse(fs.readFileSync(CFG, 'u
 
 let html = fs.readFileSync(SRC, 'utf8');
 const fail = (m) => { throw new Error(m); };
+
+// 0. arrow glyph guard -------------------------------------------------------
+// A typeset arrow can never butt onto a drawn rule (own stem, bearings, baseline),
+// so its presence means a CTA regressed from the chevron PNG. Fail before anything
+// else - this is exactly the regression the build must not ship.
+{
+  const body = html.slice(html.indexOf('<body')).replace(/<!--[\s\S]*?-->/g, '');
+  const glyphs = (body.match(/&#8594;|&rarr;|\u2192/g) || []).length;
+  if (glyphs) fail(`${glyphs} text arrow glyph(s) in the body - CTAs must use the chevron PNG (references/email-structure.md)`);
+}
 
 // 1. images ------------------------------------------------------------------
 for (const [local, cdn] of Object.entries(cfg.images)) {
