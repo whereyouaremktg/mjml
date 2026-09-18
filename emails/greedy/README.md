@@ -153,6 +153,9 @@ becomes when it has to render in Outlook and reflow on a phone.
   the nearest Google match. Only Apple Mail and a few others honour webfonts at all;
   everything else lands on the fallback stacks, which is why `'ABC Marfa'` and
   `'ABC Marfa Mono'` still lead the stacks for anyone with the licensed faces installed.
+  The Klaviyo build drops the three `<link rel="stylesheet">` tags MJML also emits —
+  Klaviyo's hybrid editor warns "Unknown node 'link'" for each, and the `@import`
+  rules cover the same clients.
 - **Breakpoint** — 480px. Two columns above, one below.
 
 ## Still on you

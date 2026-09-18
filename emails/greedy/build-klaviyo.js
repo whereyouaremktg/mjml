@@ -43,6 +43,20 @@ for (const [local, cdn] of Object.entries(IMAGES)) {
   html = html.split(local).join(cdn);
 }
 
+// --- 1b. font tags ---------------------------------------------------------
+// Klaviyo's hybrid editor parses the template into its own node model and does
+// not know <link>: it warns "Unknown node 'link'" once per Google Fonts <link>
+// tag that MJML emits from mj-font. The @import rules in the <style> right
+// after them load the same fonts in the same clients, so the <link>s go.
+// <style> content is raw text, so &amp; inside the @import URLs was being sent
+// literally; un-escape it.
+const links = html.match(/^\s*<link href="https:\/\/fonts\.googleapis\.com[^>]*>\s*\n/gm) || [];
+if (links.length !== 3) throw new Error(`expected 3 font <link> tags, found ${links.length}`);
+for (const l of links) html = html.replace(l, '');
+const imports = html.match(/@import url\(https:\/\/fonts\.googleapis\.com[^)]*\);/g) || [];
+if (imports.length !== 3) throw new Error(`expected 3 @import rules, found ${imports.length}`);
+for (const i of imports) html = html.replace(i, i.replace(/&amp;/g, '&'));
+
 // --- 2. editable regions --------------------------------------------------
 // A region is a <td> Klaviyo hands to its block editor. Regions hold only
 // klaviyo-blocks - mixing raw markup in with them is unsupported - so the
