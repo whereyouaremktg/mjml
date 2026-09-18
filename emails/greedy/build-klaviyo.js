@@ -17,14 +17,16 @@ const DIR = __dirname;
 const SRC = path.join(DIR, 'greedy-launch-01.html');
 const OUT = path.join(DIR, 'greedy-launch-01.klaviyo.html');
 
-// Klaviyo image library (account TsiEJh). Re-upload and update these when the
-// real photography lands, or swap them in the Klaviyo UI on the image blocks.
+// Klaviyo image library (account TsiEJh). The hero, inset and lifestyle are the
+// real photography exported from the Figma campaign frame at 2x; the wordmarks
+// are rasterised from the SVG. To swap one: upload the new file to the library,
+// paste its URL here, rebuild.
 const IMAGES = {
-  'assets/slot-hero-collage@2x.png':      'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/308f07e3-d77d-408a-aa14-70c3bd8f1f8f.png',
+  'assets/slot-hero-collage@2x.png':      'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/72b55267-bb99-49f9-9a33-fcc711c18b8e.png',
   'assets/greedy-wordmark-white@2x.png':  'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/0658e37d-5e74-4ae8-b01c-cb0e57d5c672.png',
   'assets/greedy-wordmark-ink@2x.png':    'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/80247f8b-1a08-41ac-84de-a5c0fcc67048.png',
-  'assets/slot-inset@2x.png':             'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/58473999-4a0a-4359-8e6c-cbe0e033dcdb.png',
-  'assets/slot-lifestyle@2x.png':         'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/cb413fd6-fd16-432b-a67d-0fbec00bd10e.png',
+  'assets/slot-inset@2x.png':             'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/dc992240-90c3-4587-9ec9-53fb1607d455.png',
+  'assets/slot-lifestyle@2x.png':         'https://d3k81ch9hvuctc.cloudfront.net/company/TsiEJh/images/6354ee07-50f2-4ff3-83ea-eaf5dde5229e.png',
 };
 
 let html = fs.readFileSync(SRC, 'utf8');

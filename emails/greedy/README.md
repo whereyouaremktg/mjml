@@ -30,8 +30,10 @@ regions are editable in Klaviyo's UI without touching HTML —
 | Editorial left column | prose |
 | Editorial right column | prose |
 
-The five placeholder images are uploaded to the Klaviyo image library and referenced by
-CDN URL, so the template renders as soon as you open it.
+All five images are in the Klaviyo image library and referenced by CDN URL, so the
+template renders as soon as you open it. The hero, inset and lifestyle are the real
+photography, exported from the Figma campaign frame at 2x (library names start
+`Greedy Launch 01 -`); the wordmarks are rasterised from the SVG.
 
 Not editable in the UI, by design:
 
@@ -85,8 +87,10 @@ land in the drag-and-drop builder with no paste-HTML escape hatch, and you start
 
 ## Image slots
 
-Relative paths under `assets/` render a correct local preview. They are placeholders —
-none of them can ship.
+Relative paths under `assets/` render a correct local preview. The three photo slots
+there are placeholders and stay that way: the real files live in Klaviyo's library and
+`build-klaviyo.js` swaps them in. (The build sandbox cannot fetch Klaviyo's CDN, so the
+real photography is not mirrored into the repo.)
 
 | Slot | Placed at | Export | Notes |
 |---|---|---|---|
@@ -99,6 +103,22 @@ none of them can ship.
 The hero has to be one composite because email cannot overlap two images and a panel.
 Everything above the cream panel — both cards, the white gap between them, the crop —
 lives in that single file.
+
+### Swapping photography without downloading anything
+
+Figma export URLs are fetchable by Klaviyo's `upload_image_from_url`, so the whole route
+is Figma → Klaviyo with no local file. For the two slots that need geometry applied:
+
+1. In the campaign file, make a temporary frame the size of the slot (hero 575 × 540,
+   lifestyle 575 × 304), white fill, clip content.
+2. Clone the photo rectangles into it, shifted **−25 px in x** — that is the 24 px gutter
+   plus the 1 px rail the email adds on the left. Hero: left card at x = −25, right card
+   at x = 233. Lifestyle: the 600-wide image at x = −25.
+3. Export the frame at 2x, hand the URL to Klaviyo, delete the frame.
+4. Paste the new CDN URL into `IMAGES` in `build-klaviyo.js`, rebuild, update template
+   `Wv3ti4`.
+
+The inset needs no geometry — export the rectangle itself at 2x.
 
 ## What changed coming out of Figma, and why
 
